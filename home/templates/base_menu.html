@@ -1,0 +1,50 @@
+{% extends "base_bootstrap.html" %}
+{% block navbar %}
+{% load app_tags %}
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid" style="display: flex; flex-direction: row; justify-content: space-between; flex-wrap: nowrap;">
+        <div style="flex: 1" class="navbar-header">
+            <a class="navbar-brand" href="/">Home</a>
+        </div>
+        <!-- https://stackoverflow.com/questions/22047251/django-dynamically-get-view-url-and-check-if-its-the-current-page -->
+        <!-- <ul class="nav navbar-nav">
+            <li>
+                <p class="nav">
+                    list of videos (pending)
+                </p>
+            </li>
+
+        </ul> -->
+        <ul style="margin: auto;"  class="navbar-nav">
+
+            <form >
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;" class="input-group">
+                    <input class="form-control rounded" type="text" name="search" placeholder="Search..">
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
+                    <a href="{% url 'videos:videos_list' %}"><i class="fa fa-undo"></i></a>
+                </div>
+            </form>
+        </ul>
+        <ul  style="flex: 1; display: flex; justify-content: end;" class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'videos:videos_create' %}">Create Video</a>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    <img style="width: 25px;" src="{{ user|gravatar:60 }}" /><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'logout' %}?next={% url 'videos:videos_list' %}">Logout</a></li>
+                    <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                </ul>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'login' %}?next={% url 'videos:videos_list' %}">Login</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+{% endblock %}

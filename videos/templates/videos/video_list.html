@@ -1,0 +1,30 @@
+{% extends "base_menu.html" %}
+
+{% block content %}
+
+video list
+<div>
+    <div class="row align-items-center">
+        {% for video in object_list %}
+        <div class="col-4">
+            <div class="card" style="max-width: 18rem;">
+                <video src="{{video.video_file}}" class="card-img-top"
+                    controls></video>
+
+                <div class="card-body">
+                    <h4 class="card-title"><a href="{% url 'videos:videos_detail' video.id %}">{{video.title}}</a></h4>
+                    <p class="card-text">{{video.description}}</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+
+    <a href="{% url 'videos:videos_create' %}">Add</a>
+</div>
+
+{% endblock %}

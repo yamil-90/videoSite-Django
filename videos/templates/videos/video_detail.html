@@ -1,0 +1,29 @@
+{% extends "base_menu.html" %}
+
+{% block content %}
+
+<h1>video detail</h1>
+<p>{{object.title}}</p>
+<p>slug: {{object.slug}}</p>
+<p>description: {{object.description}}</p>
+<p>author: {{object.author}}</p>
+
+<a href="{% url 'videos:videos_update' object.id %}">Update</a>
+
+<h4>comment section</h4>
+{% if user.is_authenticated %}
+{% load crispy_forms_tags %}
+<form method="post" action="{% url 'videos:videos_comments_create' object.id %}">
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+    <input type="submit" value="Add">
+</form>
+{% else %}
+<p>please login to comment</p>
+{% endif %}
+{% for comment in comment_list %}
+<p>{{comment.text}}</p>
+<p>{{comment.author}}</p>
+{% endfor %}
+
+{% endblock %}

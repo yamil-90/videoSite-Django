@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     # My apps
     'home.apps.HomeConfig',
     'videos.apps.VideosConfig',
+
+    # Third party apps
+    'django_extensions', 
+    'crispy_forms', 
 ]
 
 MIDDLEWARE = [

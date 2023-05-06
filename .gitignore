@@ -1,0 +1,28 @@
+# Django files
+*.log
+*.pot
+*.pyc
+__pycache__/
+media/
+assets/
+staticfiles/
+*.db
+*.sqlite3
+
+# Environment files
+.venv/
+.env
+.env.*
+
+# IDE files
+.vscode/
+.idea/
+
+# Compiled files
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
