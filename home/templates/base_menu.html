@@ -6,7 +6,6 @@
         <div style="flex: 1" class="navbar-header">
             <a class="navbar-brand" href="/">Home</a>
         </div>
-        <!-- https://stackoverflow.com/questions/22047251/django-dynamically-get-view-url-and-check-if-its-the-current-page -->
         <!-- <ul class="nav navbar-nav">
             <li>
                 <p class="nav">
@@ -17,9 +16,13 @@
         </ul> -->
         <ul style="margin: auto;"  class="navbar-nav">
 
-            <form >
+            <form method="get" action="{% url 'videos:videos_list' %}">
                 <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;" class="input-group">
-                    <input class="form-control rounded" type="text" name="search" placeholder="Search..">
+                    <input class="form-control rounded" type="text" name="search" placeholder="Search.."
+                    {% if request.GET.search %}
+                    value="{{request.GET.search}}"
+                    {% endif %}
+                    >
                     <button type="submit" class="btn btn-outline-primary">Search</button>
                     <a href="{% url 'videos:videos_list' %}"><i class="fa fa-undo"></i></a>
                 </div>

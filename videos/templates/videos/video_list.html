@@ -6,15 +6,12 @@ video list
 <div>
     <div class="row align-items-center">
         {% for video in object_list %}
-        <div class="col-4">
+        <div class="col-sm-4">
             <div class="card" style="max-width: 18rem;">
-                <video src="{{video.video_file}}" class="card-img-top"
-                    controls></video>
+                <video style="width: 100%;" src="{{video.video_file.url}}" class="card-img-top" controls></video>
 
                 <div class="card-body">
                     <h4 class="card-title"><a href="{% url 'videos:videos_detail' video.id %}">{{video.title}}</a></h4>
-                    <p class="card-text">{{video.description}}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>

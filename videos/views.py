@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404, redirect
 from django.db.models import Q
+from django.core.exceptions import PermissionDenied
 
 class VideosListView(ListView):
     model = Video
@@ -47,14 +48,22 @@ class VideoCreateView(LoginRequiredMixin, CreateView):
 
 class VideoUpdateView(LoginRequiredMixin, UpdateView):
     model = Video
-    fields = ['title', 'description', 'url']
+    fields = ['title', 'description', 'video_file', 'thumbnail']
 
     def get_success_url(self):
         return reverse_lazy('videos:videos_detail', args=[self.object.id])
 
+    def get_object(self, **kwargs):
+        object = super().get_object(**kwargs)
+        if object.author != self.request.user:
+            raise PermissionDenied("You are not allowed to edit this video.")
+        return object
+
     def form_valid(self, form):
         form.instance.slug = form.instance.title.replace(" ", "-").lower()
         return super().form_valid(form)
+    
+
     
 
 class VideoDeleteView(DeleteView):

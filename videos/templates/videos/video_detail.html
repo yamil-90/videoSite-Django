@@ -2,14 +2,18 @@
 
 {% block content %}
 
-<h1>video detail</h1>
-<p>{{object.title}}</p>
-<p>slug: {{object.slug}}</p>
+<h1>{{object.title}}</h1>
+<video src="{{ video.video_file.url}}" class="card-img-top"
+controls></video>
 <p>description: {{object.description}}</p>
 <p>author: {{object.author}}</p>
-
+<p>categories: {% for categories in object.categories.all %}
+    {{categories.name}}
+    {% endfor %}
+</p>
+{% if object.author == user %}
 <a href="{% url 'videos:videos_update' object.id %}">Update</a>
-
+{% endif %}
 <h4>comment section</h4>
 {% if user.is_authenticated %}
 {% load crispy_forms_tags %}
@@ -22,8 +26,9 @@
 <p>please login to comment</p>
 {% endif %}
 {% for comment in comment_list %}
+{% load humanize %}
 <p>{{comment.text}}</p>
-<p>{{comment.author}}</p>
+<p>by {{comment.author}} {{comment.modified|naturaltime}}</p>
 {% endfor %}
 
 {% endblock %}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,15 @@ SECRET_KEY = 'django-insecure-_(chaki6nt10@19b!i!!0)7&sej-wy8+u95)y22=-c*r0)ide^
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+# Media
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT=os.path.join(BASE_DIR,"media/")
+
+# Static files (CSS, JavaScript, Images)
+
+STATIC_URL = '/static/'
 
 
 # Application definition
@@ -44,7 +54,8 @@ INSTALLED_APPS = [
 
     # Third party apps
     'django_extensions', 
-    'crispy_forms', 
+    'crispy_forms',
+    'django.contrib.humanize', 
 ]
 
 MIDDLEWARE = [

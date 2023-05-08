@@ -1,7 +1,9 @@
+from typing import Type
 from django.db import models
 from django.conf import settings
 from django.core.validators import FileExtensionValidator, ValidationError
 from PIL import Image
+from django.db.models.options import Options
 
 def validate_video_size(value):
     filesize = value.size
@@ -19,6 +21,8 @@ class Video(models.Model):
 
     video_file = models.FileField(upload_to='assets/videos/', validators=[FileExtensionValidator(allowed_extensions=['mp4']), validate_video_size])
     thumbnail = models.ImageField(upload_to='assets/thumbnails/')
+
+    categories = models.ManyToManyField('Category', related_name='videos')
     
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
@@ -49,3 +53,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.video.title} - {self.text[:50]}"
+    
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField()
+
+
+
+    def __str__(self):
+        return self.name
