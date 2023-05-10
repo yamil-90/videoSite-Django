@@ -1,15 +1,10 @@
-from typing import Type
 from django.db import models
 from django.conf import settings
 from django.core.validators import FileExtensionValidator, ValidationError
 from PIL import Image
 from django.db.models.options import Options
+from .helpers import validate_video_size
 
-def validate_video_size(value):
-    filesize = value.size
-
-    if filesize > 10485760:
-        raise ValidationError("The maximum file size that can be uploaded is 10MB")
 
 
 # Create your models here.
@@ -62,3 +57,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Like(models.Model):
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    # this is to avoid a user liking a video more than once
+    class meta:
+        unique_together = ('video', 'author')

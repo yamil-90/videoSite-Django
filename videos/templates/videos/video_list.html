@@ -2,26 +2,43 @@
 
 {% block content %}
 
-video list
 <div>
     <div class="row align-items-center">
         {% for video in object_list %}
-        <div class="col-sm-4">
-            <div class="card" style="max-width: 18rem;">
-                <video style="width: 100%;" src="{{video.video_file.url}}" class="card-img-top" controls></video>
-
-                <div class="card-body">
-                    <h4 class="card-title"><a href="{% url 'videos:videos_detail' video.id %}">{{video.title}}</a></h4>
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4 h-100" >
+            <div style=" height: 100%;" class="card">
+                <div style=" height: 100%;" class="card-body p-0">
+                    <a  href="{% url 'videos:videos_detail' video.id %}">
+                        <video style=" 
+                        height: 200px; width: 100%;
+                        object-fit: cover;
+                        object-position: center;"
+                        src="{{video.video_file.url}}" 
+                        class="card-img-top"
+                        controls>
+                        </video>
+                    </a>
+                    <div class="card-footer">
+                        <a href="{% url 'videos:videos_detail' video.id %}">
+                            <h5 class="video-title">{{ video.title }}</h5>
+                        </a>
+                        <p class="card-text">by {{ video.author }}</p>
+                    </div>
                 </div>
             </div>
         </div>
         {% endfor %}
-
-
     </div>
-
-
-    <a href="{% url 'videos:videos_create' %}">Add</a>
 </div>
+
+<style>
+    .video-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Change this value to the maximum number of lines you want to show */
+  -webkit-box-orient: vertical;
+}
+</style>
 
 {% endblock %}

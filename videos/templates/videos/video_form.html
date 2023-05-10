@@ -4,7 +4,7 @@
 
 <h1>video add</h1>
 {% load crispy_forms_tags %}
-<form method="post" enctype="multipart/form-data">
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Add">
