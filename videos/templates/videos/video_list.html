@@ -9,14 +9,14 @@
             <div style=" height: 100%;" class="card">
                 <div style=" height: 100%;" class="card-body p-0">
                     <a  href="{% url 'videos:videos_detail' video.id %}">
-                        <video style=" 
+                        <img style=" 
                         height: 200px; width: 100%;
                         object-fit: cover;
                         object-position: center;"
-                        src="{{video.video_file.url}}" 
+                        src="{{video.thumbnail.url}}" 
                         class="card-img-top"
                         controls>
-                        </video>
+                    </img>
                     </a>
                     <div class="card-footer">
                         <a href="{% url 'videos:videos_detail' video.id %}">
