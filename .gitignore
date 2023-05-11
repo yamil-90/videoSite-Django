@@ -8,6 +8,7 @@ assets/
 staticfiles/
 *.db
 *.sqlite3
+database_info.py
 
 # Environment files
 .venv/
