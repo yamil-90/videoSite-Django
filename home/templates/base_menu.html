@@ -4,23 +4,32 @@
 <nav class="navbar navbar-default ">
     <div class="container-fluid"
         style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: nowrap;">
-        <div style="flex: 1; display: flex; justify-content: flex-start; align-items: center;" class="navbar-header center">
-            <a style="text-decoration: none; display: flex; flex-direction: row;justify-content: flex-start; align-items: center;" href="/">
-                <span style="font-size: 18px; display: flex;align-items: center ;padding: 3px; color: white;background-color: red; border-radius: 10px;">
+        <div style="flex: 1; display: flex; justify-content: flex-start; align-items: center;"
+            class="navbar-header center">
+            <a style="text-decoration: none; display: flex; flex-direction: row;justify-content: flex-start; align-items: center;"
+                href="/">
+                <span
+                    style="font-weight: bold; font-size: 18px; display: flex;align-items: center ;padding: 3px; color: white;background-color: red; border-radius: 10px;">
 
                     Yamil
                 </span>
                 Tube
             </a>
-        </div>
-        <!-- <ul class="nav navbar-nav">
-            <li>
-                <p class="nav">
-                    list of videos (pending)
-                </p>
-            </li>
 
-        </ul> -->
+            <div class="ml-4">
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categories
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for category in categories %}
+                        <a class="dropdown-item" href="{% url 'videos:videos_category_detail' category.id %}">{{category.name}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
         <ul style="margin: auto;" class="navbar-nav">
 
             <form method="get" action="{% url 'videos:videos_list' %}">
@@ -33,10 +42,10 @@
                 </div>
             </form>
         </ul>
-        <div style="flex: 1; display: flex; align-items: center; justify-content: flex-end; flex-direction: row;" 
-        class="">
+        <div style="flex: 1; display: flex; align-items: center; justify-content: flex-end; flex-direction: row;"
+            class="">
             {% if user.is_authenticated %}
-      
+
             <div>
                 <a class="btn btn-light" href="{% url 'videos:videos_create' %}">Create Video</a>
             </div>
@@ -46,11 +55,12 @@
                 </a>
                 <div style="right: 0px; left: auto" class="dropdown-menu dropdown-menu-right">
                     <li class="dropdown-item">
-                       
-                            You are logged as {{user.username}}
-                        
+
+                        You are logged as {{user.username}}
+
                     </li>
-                    <li class="dropdown-item"><a href="{% url 'logout' %}?next={% url 'videos:videos_list' %}">Logout</a></li>
+                    <li class="dropdown-item"><a
+                            href="{% url 'logout' %}?next={% url 'videos:videos_list' %}">Logout</a></li>
                     <li class="dropdown-item"><a href="{% url 'admin:index' %}">Admin</a></li>
                 </div>
             </div>

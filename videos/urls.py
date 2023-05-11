@@ -11,7 +11,8 @@ urlpatterns = [
     path('video/<int:pk>/delete', views.VideoDeleteView.as_view(), name='videos_delete'),
     path('video/<int:pk>/comment', views.CommentCreateView.as_view(), name='videos_comments_create'),
     path('video/<int:pk>/comment/<int:comment_pk>/delete', views.CommentDeleteView.as_view(), name='videos_comments_delete'),
-    path('category/<str:category>/', views.CategoriesListView.as_view(), name='videos_category_list'),
+
+    path('category/<int:pk>/', views.CategoriesDetailView.as_view(), name='videos_category_detail'),
     path('video/<int:pk>/like', views.LikeView.as_view(), name='videos_like'),
     path('video/<int:pk>/dislike', views.DislikeView.as_view(), name='videos_dislike'),
 

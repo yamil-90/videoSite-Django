@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Video, Comment, Like
+from .models import Video, Comment, Like, Category
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm, VideoCreateForm
 from django.shortcuts import get_object_or_404, redirect, Http404, render
@@ -21,6 +21,9 @@ class VideosListView(ListView):
         object_list = Video.objects.filter(query)
 
         context = super().get_context_data(object_list=object_list, **kwargs)
+        categories = Category.objects.all()
+
+        context['categories'] = categories
 
         return context
 
@@ -106,12 +109,22 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
 
     
 class CategoriesListView(ListView):
-    model = Video
+    model = Category
     template_name = 'videos/videos_list.html'
 
     def get_context_data(self, **kwargs: Dict[str, Any]):
         context = super().get_context_data(**kwargs)
-        context['object_list'] = Video.objects.filter(category__name=self.kwargs['category'])
+        context['object_list'] = Video.objects.filter(categories__id=self.kwargs['pk'])
+        return context
+    
+class CategoriesDetailView(DetailView):
+    model = Category
+    template_name = 'videos/video_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['object_list'] = Video.objects.filter(categories__id=self.kwargs['pk'])
         return context
     
 class LikeView(LoginRequiredMixin, CreateView):
