@@ -123,7 +123,6 @@ class CategoriesDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
         context['object_list'] = Video.objects.filter(categories__id=self.kwargs['pk'])
         return context
     
